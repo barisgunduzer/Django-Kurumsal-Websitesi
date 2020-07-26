@@ -1,1 +1,1 @@
-Django Kurumsal Websitesi Projesi (Yazılım Firması)
+# Django Kurumsal Websitesi Projesi (Yazılım Firması)
