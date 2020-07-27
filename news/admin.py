@@ -8,16 +8,19 @@ class PostImageInline(admin.TabularInline):
     extra = 3
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ['title', 'status']
+    list_display = ['title', 'status', 'image_tag']
+    readonly_fields = ['image_tag']
     list_filter = ['status']
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ['title', 'category', 'status']
+    list_display = ['title', 'category', 'image_tag', 'status']
+    readonly_fields = ['image_tag']
     list_filter = ['status', 'category']
     inlines = [PostImageInline]
 
 class PictureAdmin(admin.ModelAdmin):
-    list_display = ['title', 'post', 'image']
+    list_display = ['title', 'post', 'image_tag']
+    readonly_fields = ['image_tag']
 
 admin.site.register(Category,CategoryAdmin)
 admin.site.register(Post,PostAdmin)
