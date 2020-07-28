@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.safestring import mark_safe
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class Category(models.Model):
     STATUS = (
@@ -33,8 +34,7 @@ class Post(models.Model):
     keywords = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     image = models.ImageField(blank=True, upload_to='images')
-    t_header = models.CharField(max_length=255)
-    t_content = models.TextField()
+    content = RichTextUploadingField()
     status = models.CharField(max_length=10, choices=STATUS)
     slug = models.SlugField()
     parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
