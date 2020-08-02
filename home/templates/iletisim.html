@@ -1,0 +1,56 @@
+{% extends "homebase.html" %}
+
+{% block title %}{{ setting.title }}{% endblock %}
+{% block keywords %}"{{ setting.keywords }}"{% endblock %}
+{% block description %}"{{ setting.description }}"{% endblock %}
+{% block head %} <link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}">{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+    {% load static %}
+    <div id="content-main" class="parallax section db parallax-off" style="background-image:url('{% static 'uploads/parallax_05.png' %}');">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>Bize Ulaşın</h3>
+            </div><!-- end title -->
+
+            <hr class="hr1">
+
+            <h2 style="text-align:center;color:#f1f1f1" >&nbsp;</h2>
+
+            <h1 style="text-align:center;color:#f1f1f1"><span style="font-size:18px"><strong>ANKARA</strong></span></h1>
+
+            <h1 style="text-align:center;color:#f1f1f1">
+                <span style="font-size:16px">
+                    <strong>Adres: </strong>Silikon Blok, No: BK 19-95 2109 ODTÜ Teknokent Çankaya
+                </span>
+            </h1>
+
+            <h1 style="text-align:center;color:#f1f1f1">
+                <span style="font-size:16px">
+                    <strong>E-posta: </strong>info@parasoft.com
+                </span>
+            </h1>
+
+            <h1 style="text-align:center;color:#f1f1f1">
+                <span style="font-size:16px">
+                    <strong>Telefon: </strong>0312 456 78 78
+                </span>
+            </h1>
+
+            <h1 style="text-align:center;color:#f1f1f1"><span style="font-size:18px">
+                    <strong>İSTANBUL</strong>
+            </span></h1>
+
+            <h1 style="text-align:center;color:#f1f1f1"><span style="font-size:16px">
+                    <strong>Adres: </strong>Tugay Yolu Cad. Ofisim İstanbul Plaza No: 221/B D: 06 3478 Cevizli / Maltepe</span>
+            </h1>
+
+            <p style="text-align:center;color:#f1f1f1">
+                <iframe height="450"
+                        src="https://www.google.com/maps/d/embed?mid=1ZlqkEIvE62WiktBJlGKuV7n_FYTWCMbx"
+                        width="600"></iframe>
+            </p>
+        </div>
+    </div>
+
+{% endblock %}
