@@ -1,56 +1,115 @@
 {% extends "homebase.html" %}
-
-{% block title %}{{ setting.title }}{% endblock %}
+{% block title %}İletişim Bilgileri{% endblock %}
 {% block keywords %}"{{ setting.keywords }}"{% endblock %}
 {% block description %}"{{ setting.description }}"{% endblock %}
-{% block head %} <link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}">{% endblock %}
+{% block head %}
+    <link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}">
+    <style>
+        h1{
+            text-align: center;
+        }
+
+        h2.h2{
+            color: #0f0f0f;
+            text-align: center;
+        }
+
+        label{
+            display: none;
+        }
+
+        li{
+            display: none;
+        }
+
+        p{
+            color: #0f0f0f;
+            text-align: center;
+        }
+
+        span{
+            font-size: 16px;
+        }
+
+        .button {
+          background-color: #fd6802;
+          border: none;
+          color: white;
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          cursor: pointer;
+          border-radius: 25px 0px 25px 0px;
+        }
+    </style>
+{% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
-    {% load static %}
-    <div id="content-main" class="parallax section db parallax-off" style="background-image:url('{% static 'uploads/parallax_05.png' %}');">
-        <div class="container">
-            <div class="section-title text-center">
-                <h3>Bize Ulaşın</h3>
-            </div><!-- end title -->
+<div class="section">
+    <div class="container">
+        <div class="row" >
+            <div class="col-md-6">
+                <h2 class="h2">
+                    İletişim Bilgileri
+                </h2>
+                <hr class="hr2">
+                <h1>
+                    <span style="font-size:18px">
+                        <b>Ankara</b>
+                    </span>
+                </h1>
+                <h1>
+                    <span>
+                        {{ setting.address }}
+                    </span>
+                </h1>
+                <h1>
+                    <span>
+                        {{ setting.email }}
+                    </span>
+                </h1>
+                <h1>
+                    <span>
+                        {{ setting.phone }}
+                    </span>
+                </h1>
+                <h1>
+                    <span style="font-size:18px">
+                        <b>İstanbul</b>
+                    </span>
+                </h1>
+                <h1>
+                    <span>
+                        Tugay Yolu Cad. Plaza No: 221/B D: 06 3478 Maltepe/İstanbul</span>
+                </h1>
+            </div>
+            <div class="col-md-6">
+                <h2 class="h2">
+                    İletişim Formu
+                </h2>
 
-            <hr class="hr1">
+                <hr class="hr2">
 
-            <h2 style="text-align:center;color:#f1f1f1" >&nbsp;</h2>
-
-            <h1 style="text-align:center;color:#f1f1f1"><span style="font-size:18px"><strong>ANKARA</strong></span></h1>
-
-            <h1 style="text-align:center;color:#f1f1f1">
-                <span style="font-size:16px">
-                    <strong>Adres: </strong>Silikon Blok, No: BK 19-95 2109 ODTÜ Teknokent Çankaya
-                </span>
-            </h1>
-
-            <h1 style="text-align:center;color:#f1f1f1">
-                <span style="font-size:16px">
-                    <strong>E-posta: </strong>info@parasoft.com
-                </span>
-            </h1>
-
-            <h1 style="text-align:center;color:#f1f1f1">
-                <span style="font-size:16px">
-                    <strong>Telefon: </strong>0312 456 78 78
-                </span>
-            </h1>
-
-            <h1 style="text-align:center;color:#f1f1f1"><span style="font-size:18px">
-                    <strong>İSTANBUL</strong>
-            </span></h1>
-
-            <h1 style="text-align:center;color:#f1f1f1"><span style="font-size:16px">
-                    <strong>Adres: </strong>Tugay Yolu Cad. Ofisim İstanbul Plaza No: 221/B D: 06 3478 Cevizli / Maltepe</span>
-            </h1>
-
-            <p style="text-align:center;color:#f1f1f1">
-                <iframe height="450"
-                        src="https://www.google.com/maps/d/embed?mid=1ZlqkEIvE62WiktBJlGKuV7n_FYTWCMbx"
-                        width="600"></iframe>
-            </p>
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }}" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+                <div style="text-align: center">
+                    <form action="#" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" class="button" value="Gönder">
+                    </form>
+                </div>
+            </div>
         </div>
+        <hr class="hr2">
     </div>
-
+</div>
 {% endblock %}

@@ -1,19 +1,18 @@
 {% extends "homebase.html" %}
-
-{% block title %}{{ setting.title }}{% endblock %}
+{% block title %}Referanslarımız-{{ setting.title }}{% endblock %}
 {% block keywords %}"{{ setting.keywords }}"{% endblock %}
 {% block description %}"{{ setting.description }}"{% endblock %}
 {% block head %} <link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}">{% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
     {% load static %}
-    <div id="content-main" class="parallax section db parallax-off" style="background-image:url('{% static 'uploads/parallax_05.png' %}');">
+    <div id="content-main" class="parallax section db parallax-off" style="background-color: #ffffff;">
         <div class="container">
             <div class="section-title text-center">
-                <h3>Referanslarımız</h3>
+                <h3 style="color: #1f1f1f">Referanslarımız</h3>
             </div><!-- end title -->
 
-            <hr class="hr1">
+            <hr class="hr3">
 
             {{ setting.references|safe }}
 

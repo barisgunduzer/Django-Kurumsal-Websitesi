@@ -1,27 +1,43 @@
 {% extends "homebase.html" %}
 
-{% block title %}{{ setting.title }}{% endblock %}
+{% block title %}Hakkımızda{% endblock %}
 {% block keywords %}"{{ setting.keywords }}"{% endblock %}
 {% block description %}"{{ setting.description }}"{% endblock %}
 {% block head %} <link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}">{% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
     {% load static %}
-    <div id="about" class="section wb">
+    <div id="about" class="section wb" style="background-color: #ffffff">
         <div class="container">
+
             <div class="row">
+				<div class="col-md-6">
+                    <div class="post-media wow fadeIn">
+                        <img src="{% static "uploads/BI.png" %}" alt="" class="img-responsive img-rounded">
+                    </div><!-- end media -->
+                </div><!-- end col -->
+
                 <div class="col-md-6">
                     <div class="message-box">
                         <h2>Hakkımızda</h2>
                         <p class="lead">{{ setting.aboutus|safe }}</p>
-                        <a href="hizmetlerimiz" class="btn btn-light btn-radius btn-brd grd1">Daha Fazla</a>
+                    </div><!-- end messagebox -->
+                </div><!-- end col -->
+            </div><!-- end row -->
+
+            <hr class="hr1">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="message-box">
+                        <h2>Vizyonumuz</h2>
+                        <p class="lead">{{ setting.ourvision|safe }}</p>
                     </div><!-- end messagebox -->
                 </div><!-- end col -->
 
                 <div class="col-md-6">
                     <div class="post-media wow fadeIn">
-                        <img src="{% static "uploads/about_01.jpg" %}" alt="" class="img-responsive img-rounded">
-                        <a href="https://www.youtube.com/watch?v=hDJdkcdG1iA" data-rel="prettyPhoto[gal]" class="playbutton"><i class="flaticon-play-button"></i></a>
+                        <img src="{% static "uploads/vizyonumuz.png" %}" alt="" class="img-responsive img-rounded">
                     </div><!-- end media -->
                 </div><!-- end col -->
             </div><!-- end row -->
@@ -31,38 +47,17 @@
             <div class="row">
 				<div class="col-md-6">
                     <div class="post-media wow fadeIn">
-                        <img src="{% static "uploads/about_02.jpg" %}" alt="" class="img-responsive img-rounded">
+                        <img src="{% static "uploads/misyonumuz.png" %}" alt="" class="img-responsive img-rounded">
                     </div><!-- end media -->
                 </div><!-- end col -->
 
-                <div class="col-md-6">
-                    <div class="message-box">
-                        <h2>Vizyonumuz</h2>
-                        <p class="lead">{{ setting.ourvision|safe }}</p>
-                        <a href="#hizmetlerimiz" class="btn btn-light btn-radius btn-brd grd1">Daha Fazla</a>
-                    </div><!-- end messagebox -->
-                </div><!-- end col -->
-            </div><!-- end row -->
-
-            <hr class="hr1">
-
-            <div class="row">
                 <div class="col-md-6">
                     <div class="message-box">
                         <h2>Misyonumuz</h2>
                         <p class="lead">{{ setting.ourmission|safe }}</p>
-                        <a href="hizmetlerimiz" class="btn btn-light btn-radius btn-brd grd1">Daha Fazla</a>
                     </div><!-- end messagebox -->
                 </div><!-- end col -->
-
-                <div class="col-md-6">
-                    <div class="post-media wow fadeIn">
-                        <img src="{% static "uploads/about_01.jpg" %}" alt="" class="img-responsive img-rounded">
-                        <a href="https://www.youtube.com/watch?v=hDJdkcdG1iA" data-rel="prettyPhoto[gal]" class="playbutton"><i class="flaticon-play-button"></i></a>
-                    </div><!-- end media -->
-                </div><!-- end col -->
             </div><!-- end row -->
-
         </div><!-- end container -->
     </div><!-- end section -->
 {% endblock %}
