@@ -1,15 +1,18 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from home.models import Setting, ContactForm, ContactFormMessage
 
+from blog.models import BlogPost
+from home.models import Setting, ContactForm, ContactFormMessage
+from news.models import Post
 
 # Create your views here.
 
 
 def index(request):
+    sliderdata = BlogPost.objects.all()[:4]
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'page':'home'}
+    context = {'setting': setting, 'page': 'home', 'sliderdata': sliderdata}
     return render(request, 'index.html', context)
 
 

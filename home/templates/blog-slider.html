@@ -1,0 +1,31 @@
+{% load static %}
+<div id="services" class="parallax section lb">
+      <div class="container">
+          <div class="section-title text-center">
+              <h3>Son Yazılar</h3>
+              <p class="lead"></p>
+          </div><!-- end title -->
+
+          <div class="owl-services owl-carousel owl-theme"  style="width: auto">
+              {% for rs in sliderdata %}
+              <div class="service-widget">
+                  <div class="post-media wow fadeIn">
+                      <a href="/blog/{{ rs.slug }}"><img src="{{ rs.image.url }}"  class="img-responsive img-rounded" alt="{{ rs.title }}"></a>
+                  </div>
+                  <div class="service-dit">
+                      <a href="/blog/{{ rs.slug }}"><h3>{{ rs.title|safe }}</h3></a>
+                      <p>yazar: {{ rs.writer|safe }}</p>
+                      <p>{{ rs.create_at|date:'d-m-Y H:i' }}</p>
+                  </div>
+              </div>
+              {% endfor %}
+              <!-- end service -->
+          </div>
+
+          <hr class="hr1">
+
+          <div class="text-center">
+              <a data-scroll href= "/blog" class="btn btn-light btn-radius btn-brd">Daha Fazla</a>
+          </div>
+      </div><!-- end container -->
+  </div><!-- end section -->
