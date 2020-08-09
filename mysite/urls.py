@@ -25,11 +25,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),
     path('iletisim/', views.iletisim, name='iletisim'),
+    path('blog/', views.blog, name='iletisim'),
     path('hakkimizda/', views.hakkimizda, name='hakkimizda'),
     path('referanslarimiz/', views.referanslar, name='referanslarimiz'),
     path('home/', include('home.urls')),
-    path('news/', include('news.urls')),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('blog/<slug:slug>/', views.posts, name='posts'),
+
 
 ]
 

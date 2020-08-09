@@ -1,0 +1,27 @@
+{% extends "homebase.html" %}
+
+{% block title %}{{ postdata.title }}{% endblock %}
+{% block keywords %}"{{ postdata.keywords }}"{% endblock %}
+{% block description %}"{{ postdata.description }}"{% endblock %}
+{% block head %}<link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}">{% endblock %}
+{% block header %}{% endblock %}
+{% block content %}
+    {% load static %}
+    <div class="row text-center">
+        <div class="section-title" style="padding-top:50px;padding-bottom:50px;background-image:url({% static 'images/bg.png' %}">
+            <img src="{{ postdata.image.url }}"  class="img-responsive img-rounded" alt="{{ postdata.title }}" style="margin-left:auto;margin-right:auto;display:block;width:50%">
+            <h3 style="color: #0f0f0f;margin-top:25px">{{ postdata.title|safe }}</h3>
+            <div class="writer">
+                <small>yazar: {{ postdata.writer|safe }}</small>
+                <small>{{ postdata.create_at|date:'d-m-Y H:i' }}</small>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="text-align: left">
+            <hr class="hr2">
+            <p style="color: #0f0f0f">{{ postdata.content|safe }}</p>
+            <hr class="hr2">
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+{% endblock %}
