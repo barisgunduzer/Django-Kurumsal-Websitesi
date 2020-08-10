@@ -5,7 +5,7 @@
             <h3>Son Yazılar</h3>
             <p class="lead"></p>
             <div class="owl-services owl-carousel owl-theme">
-                {% for rs in blogdata %}
+                {% for rs in last_posts %}
                     <div class="service-widget">
                         <div class="post-media wow fadeIn">
                             <a href="/blog/{{ rs.slug }}"><img src="{{ rs.image.url }}"  class="img-responsive img-rounded" alt="{{ rs.title }}"></a>

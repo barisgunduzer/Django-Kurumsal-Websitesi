@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from django.forms import TextInput
+from django.forms import ModelForm
 from django.utils.safestring import mark_safe
 from ckeditor_uploader.fields import RichTextUploadingField
 from mptt.fields import TreeForeignKey
@@ -37,6 +37,7 @@ class Category(MPTTModel):
         return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
     image_tag.short_description = 'Image'
 
+
 class Post(models.Model):
     STATUS = (
         ('True', 'Evet'),
@@ -50,7 +51,7 @@ class Post(models.Model):
     writer = models.CharField(max_length=30)
     content = RichTextUploadingField(blank=True)
     status = models.CharField(max_length=10, choices=STATUS)
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True)
     parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now_add=True)
@@ -87,7 +88,12 @@ class Comment(models.Model):
     ip = models.CharField(blank=True, max_length=20)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now_add=True)
-    widgets = {
-        'subject': TextInput(attrs={'class': 'input', 'placeholder': 'Konu'}),
-        'comment': TextInput(attrs={'class': 'input', 'placeholder': 'Yorumunuz...'}),
-    }
+
+    def __str__(self):
+        return self.subject
+
+
+class CommentForm(ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['subject', 'comment']

@@ -16,22 +16,24 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 
 from home import views
 
 urlpatterns = [
 
-    path('admin/', admin.site.urls),
     path('', include('home.urls')),
+    path('home/', include('home.urls')),
+    path('', include('blog.urls')),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('admin/', admin.site.urls),
+
     path('iletisim/', views.iletisim, name='iletisim'),
-    path('blog/', views.blog, name='iletisim'),
+    path('blog/', views.blog, name='blog'),
     path('hakkimizda/', views.hakkimizda, name='hakkimizda'),
     path('referanslarimiz/', views.referanslar, name='referanslarimiz'),
-    path('home/', include('home.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('blog/<slug:slug>/', views.posts, name='posts'),
 
+    path('blog/<slug:slug>/<int:id>/', views.blog_detail, name='blog_detail'),
 
 ]
 

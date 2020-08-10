@@ -1,38 +1,37 @@
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
-from blog.models import Post, Category
+from blog.models import Post, Category, Comment, Picture
 from home.models import Setting, ContactForm, ContactFormMessage
 
 # Create your views here.
 
-
 def index(request):
-    blogdata = Post.objects.all()[:4]
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'page': 'home', 'blogdata': blogdata}
+    last_posts = Post.objects.all()[:4]
+    context = {'setting': setting,
+               'page': 'home',
+               'last_posts': last_posts}
     return render(request, 'index.html', context)
 
-
 def hakkimizda(request):
-    blogdata = Post.objects.all()[:4]
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'page': 'hakkimizda', 'blogdata': blogdata}
+    last_posts = Post.objects.all()[:4]
+    context = {'setting': setting,
+               'page': 'hakkimizda',
+               'last_posts': last_posts}
     return render(request, 'hakkimizda.html', context)
 
-
 def referanslar(request):
-    blogdata = Post.objects.all()[:4]
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'page': 'referanslarimiz', 'blogdata': blogdata}
+    last_posts = Post.objects.all()[:4]
+    context = {'setting': setting,
+               'page': 'referanslarimiz',
+               'last_posts': last_posts}
     return render(request, 'referanslarimiz.html', context)
 
-
 def iletisim(request):
-
-    blogdata = Post.objects.all()[:4]
-    if request.method == 'POST': #form post edildiyse
+    if request.method == 'POST':  #form post edildiyse
         form = ContactForm(request.POST)
         if form.is_valid():
             data = ContactFormMessage()  # model ile bağlantı kur
@@ -45,22 +44,33 @@ def iletisim(request):
             return HttpResponseRedirect('/iletisim')
     setting = Setting.objects.get(pk=1)
     form = ContactForm(request.POST)
-    context = {'setting': setting, 'form': form, 'blogdata': blogdata}
+    last_posts = Post.objects.all()[:4]
+    context = {'setting': setting,
+               'form': form,
+               'last_posts': last_posts}
     return render(request, 'iletisim.html', context)
 
-
 def blog(request):
-    blogdata = Post.objects.all()[:4]
-    category = Category.objects.all()
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'page': 'blog','blogdata': blogdata,'category': category}
+    category = Category.objects.all()
+    post = Post.objects.filter(status=True)
+    last_posts = Post.objects.all()[:4]
+    context = {'setting': setting,
+               'page': 'blog',
+               'last_posts': last_posts,
+               'category': category,
+               'post': post}
     return render(request, 'blog.html', context)
 
-
-def posts(request, slug):
-    postdata = Post.objects.get(slug=slug)
-    blogdata = Post.objects.all()[:4]
-    category = Category.objects.all()
+def blog_detail(request, id, slug):
     setting = Setting.objects.get(pk=1)
-    context = {'setting': setting, 'blogdata': blogdata,'category': category,'postdata':postdata}
+    category = Category.objects.all()
+    post = Post.objects.get(pk=id)
+    comments = Comment.objects.filter(post_id=id,status=True)
+    last_posts = Post.objects.all()[:4]
+    context = {'setting': setting,
+               'last_posts': last_posts,
+               'category': category,
+               'post': post,
+               'comments': comments}
     return render(request, 'blog-detail.html', context)

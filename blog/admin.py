@@ -1,9 +1,7 @@
 # Register your models here.
 
 from django.contrib import admin
-from django.utils.html import format_html
-from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
-
+from mptt.admin import DraggableMPTTAdmin
 from blog.models import Picture, Category, Post, Comment
 
 
@@ -60,6 +58,7 @@ class CategoryAdmin2(DraggableMPTTAdmin):
     def related_posts_cumulative_count(self, instance):
         return instance.posts_cumulative_count
     related_posts_cumulative_count.short_description = 'Related posts (in tree)'
+
 
 class CommentAdmin(admin.ModelAdmin):
     list_display = ['subject', 'comment', 'post', 'user', 'status']
