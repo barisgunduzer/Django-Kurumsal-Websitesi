@@ -72,6 +72,11 @@
                     {% else %}
                         <li><a href="/logout/">Çıkış Yap</a></li>
                     {% endif %}
+                    {% if page == 'signup' %}
+                        <li><a class="active" href="/signup">Üye Ol</a></li>
+                    {% else %}
+                        <li><a href="/signup">Üye Ol</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>

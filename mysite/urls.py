@@ -33,6 +33,8 @@ urlpatterns = [
     path('referanslarimiz/', views.referanslar, name='referanslarimiz'),
     path('login/', views.login_view, name='login_view'),
     path('logout/', views.logout_view, name='logout_view'),
+    path('signup/', views.signup_view, name='signup_view'),
+
     path('blog/<slug:slug>/<int:id>/', views.blog_detail, name='blog_detail'),
 
 ]

@@ -105,27 +105,27 @@ def logout_view(request):
 
 def signup_view(request):
     if request.method == 'POST':
-        form = SignUpForm(request.POST)   #formumuzu signup ile ilişkilendirdik.
-        if form.is_valid():               #valid kontrolü yaptık. şifre vs. uymuyorsa kurallara buna takılıyor.
-            form.save()                   #kurallar dolu mu boş mu şifreler aynı mı uyuyor mu vs. dorm.save ile tüm elemanları alıp eşleştirdik.
-            #return HttpResponse("Üye kaydedildi.") #kontrol ettim.
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=password)
             login(request, user)
 
-            #Create data in profile table for user
             current_user = request.user
             data = User()
             data.user_id = current_user.id
             data.image = "images/user/user.png"
             data.save()
-            messages.success(request, "Hoş Geldiniz.. Sitemize başarılı bir şekilde üye oldunuz. İyi yolculuklar dileriz.")
+            messages.success(request, "Hesabınız oluşturuldu.")
             return HttpResponseRedirect('/')
 
     form = SignUpForm()
     category = Category.objects.all()
+    last_posts = Post.objects.all().order_by('-id')[:4]
     context = {'category': category,
                'form': form,
+               'last_posts': last_posts,
                }
     return render(request, 'signup.html', context)
