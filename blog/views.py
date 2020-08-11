@@ -1,9 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
-
-from blog.models import CommentForm, Comment, Category, Post, Picture
+from blog.models import CommentForm, Comment
 
 
 def index(request):
@@ -28,5 +26,3 @@ def addcomment(request, id, slug):
             return HttpResponseRedirect(url)
     messages.warning(request, "Hata: Yorumunuz gönderilemedi")
     return HttpResponseRedirect(url)
-
-

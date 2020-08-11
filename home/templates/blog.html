@@ -1,23 +1,19 @@
 {% extends "homebase.html" %}
-{% block title %}Blog{% endblock %}
+{% block title %}{{ setting.company }} Blog{% endblock %}
 {% block keywords %}"{{ setting.keywords }}"{% endblock %}
 {% block description %}"{{ setting.description }}"{% endblock %}
-{% block head %}
-    <link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}">
-{% endblock %}
-{% block header %}{% endblock %}
+{% block head %}<link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}">{% endblock %}
 {% block content %}
-    {% load static %}
     <div class="section" style="padding-bottom:500px;margin-top:-20px;background-color:#f2f3f5">
         <div class="container" style="width:100%">
             <div class="col-lg-3" style="position:fixed">
                 <nav class="portfolio-filter" style="width:100px;margin-top:30px">
                     <ul>
-                        <li style="margin: 3px"><a class="btn btn-dark btn-radius btn-brd active" href="#" id="scroll-to-top"  data-filter="*" ><span class="oi hidden-xs" data-glyph="grid-three-up"></span>Hepsi</a></li>
-                        <li style="margin: 3px"><a class="btn btn-dark btn-radius btn-brd " href="#" id="scroll-to-top" data-toggle="tooltip" data-placement="top" data-filter=".cat1">Genel</a></li>
-                        <li style="margin: 3px"><a class="btn btn-dark btn-radius btn-brd " href="#" id="scroll-to-top" data-toggle="tooltip" data-placement="top" data-filter=".cat2">Web Programlama</a></li>
-                        <li style="margin: 3px"><a class="btn btn-dark btn-radius btn-brd " href="#" id="scroll-to-top" data-toggle="tooltip" data-placement="top" data-filter=".cat3">İş Zekası</a></li>
-                        <li style="margin: 3px"><a class="btn btn-dark btn-radius btn-brd " href="#" id="scroll-to-top" data-toggle="tooltip" data-placement="top" data-filter=".cat4">Mobil Uygulama</a></li>
+                        <li style="margin: 3px"><a class="btn btn-dark btn-radius btn-brd active" href="#" data-filter="*" ><span class="oi hidden-xs" data-glyph="grid-three-up"></span>Hepsi</a></li>
+                        <li style="margin: 3px"><a class="btn btn-dark btn-radius btn-brd " href="#" data-toggle="tooltip" data-placement="top" data-filter=".cat1">Genel</a></li>
+                        <li style="margin: 3px"><a class="btn btn-dark btn-radius btn-brd " href="#" data-toggle="tooltip" data-placement="top" data-filter=".cat2">Web Programlama</a></li>
+                        <li style="margin: 3px"><a class="btn btn-dark btn-radius btn-brd " href="#" data-toggle="tooltip" data-placement="top" data-filter=".cat3">İş Zekası</a></li>
+                        <li style="margin: 3px"><a class="btn btn-dark btn-radius btn-brd " href="#" data-toggle="tooltip" data-placement="top" data-filter=".cat4">Mobil Uygulama</a></li>
                     </ul>
                 </nav>
             </div>

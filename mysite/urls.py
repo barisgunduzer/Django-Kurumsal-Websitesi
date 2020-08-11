@@ -16,8 +16,7 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include, re_path
-
+from django.urls import path, include
 from home import views
 
 urlpatterns = [
@@ -32,7 +31,8 @@ urlpatterns = [
     path('blog/', views.blog, name='blog'),
     path('hakkimizda/', views.hakkimizda, name='hakkimizda'),
     path('referanslarimiz/', views.referanslar, name='referanslarimiz'),
-
+    path('login/', views.login_view, name='login_view'),
+    path('logout/', views.logout_view, name='logout_view'),
     path('blog/<slug:slug>/<int:id>/', views.blog_detail, name='blog_detail'),
 
 ]

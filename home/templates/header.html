@@ -1,69 +1,79 @@
 {% load static %}
 
 <!-- LOADER -->
-    <div id="preloader">
-        <div class="loader">
-			<div class="loader__bar"></div>
-			<div class="loader__bar"></div>
-			<div class="loader__bar"></div>
-			<div class="loader__bar"></div>
-			<div class="loader__bar"></div>
-			<div class="loader__ball"></div>
-		</div>
-    </div><!-- end loader -->
-    <!-- END LOADER -->
+<div id="preloader">
+    <div class="loader">
+        <div class="loader__bar"></div>
+        <div class="loader__bar"></div>
+        <div class="loader__bar"></div>
+        <div class="loader__bar"></div>
+        <div class="loader__bar"></div>
+        <div class="loader__ball"></div>
+    </div>
+</div><!-- end loader -->
+<!-- END LOADER -->
 
-    <header class="header header_style_01">
-        <nav class="megamenu navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html"><img src="{% static "logo.png" %}" alt="image"></a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if page == 'home' %}
-                            <li><a class="active" href="/">Anasayfa</a></li>
-                        {% else %}
-                            <li><a href="/">Anasayfa</a></li>
-                        {% endif %}
-                        {% if page == 'hakkimizda' %}
-                            <li><a class="active" href="/hakkimizda">Hakkımızda</a></li>
-                        {% else %}
-                            <li><a href="/hakkimizda">Hakkımızda</a></li>
-                        {% endif %}
-                        {% if page == 'hizmetlerimiz' %}
-                            <li><a class="active" href="/hizmetlerimiz">Hizmetlerimiz</a></li>
-                        {% else %}
-                            <li><a href="/hizmetlerimiz">Hizmetlerimiz</a></li>
-                        {% endif %}
-                        {% if page == 'blog' %}
-                            <li><a class="active" href="/blog">Blog</a></li>
-                        {% else %}
-                            <li><a href="/blog">Blog</a></li>
-                        {% endif %}
-                        {% if page == 'referanslarimiz' %}
-                            <li><a class="active" href="/referanslarimiz">Referanslar</a></li>
-                        {% else %}
-                            <li><a href="/referanslarimiz">Referanslar</a></li>
-                        {% endif %}
-                        {% if page == 'sss' %}
-                            <li><a class="active" href="/sss">SSS</a></li>
-                        {% else %}
-                            <li><a href="/sss">SSS</a></li>
-                        {% endif %}
-                        {% if page == 'iletisim' %}
-                            <li><a class="active" href="/iletisim">Bize Ulaşın</a></li>
-                        {% else %}
-                            <li><a href="/iletisim">Bize Ulaşın</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
+<header class="header header_style_01">
+    <nav class="megamenu navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html"><img src="{% static "logo.png" %}" alt="image"></a>
             </div>
-        </nav>
-    </header>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    {% if page == 'home' %}
+                        <li><a class="active" href="/">Anasayfa</a></li>
+                    {% else %}
+                        <li><a href="/">Anasayfa</a></li>
+                    {% endif %}
+                    {% if page == 'hakkimizda' %}
+                        <li><a class="active" href="/hakkimizda">Hakkımızda</a></li>
+                    {% else %}
+                        <li><a href="/hakkimizda">Hakkımızda</a></li>
+                    {% endif %}
+                    {% if page == 'hizmetlerimiz' %}
+                        <li><a class="active" href="/hizmetlerimiz">Hizmetlerimiz</a></li>
+                    {% else %}
+                        <li><a href="/hizmetlerimiz">Hizmetlerimiz</a></li>
+                    {% endif %}
+                    {% if page == 'blog' %}
+                        <li><a class="active" href="/blog">Blog</a></li>
+                    {% else %}
+                        <li><a href="/blog">Blog</a></li>
+                    {% endif %}
+                    {% if page == 'referanslarimiz' %}
+                        <li><a class="active" href="/referanslarimiz">Referanslar</a></li>
+                    {% else %}
+                        <li><a href="/referanslarimiz">Referanslar</a></li>
+                    {% endif %}
+                    {% if page == 'sss' %}
+                        <li><a class="active" href="/sss">SSS</a></li>
+                    {% else %}
+                        <li><a href="/sss">SSS</a></li>
+                    {% endif %}
+                    {% if page == 'iletisim' %}
+                        <li><a class="active" href="/iletisim">Bize Ulaşın</a></li>
+                    {% else %}
+                        <li><a href="/iletisim">Bize Ulaşın</a></li>
+                    {% endif %}
+                    {% if page == 'login' %}
+                        <li><a class="active" href="/login">Kullanıcı Girişi</a></li>
+                    {% else %}
+                        <li><a href="/login">Kullanıcı Girişi</a></li>
+                    {% endif %}
+                    {% if page == 'logout' %}
+                        <li><a class="active" href="/logout/">Çıkış Yap</a></li>
+                    {% else %}
+                        <li><a href="/logout/">Çıkış Yap</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

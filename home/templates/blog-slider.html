@@ -8,10 +8,10 @@
                 {% for rs in last_posts %}
                     <div class="service-widget">
                         <div class="post-media wow fadeIn">
-                            <a href="/blog/{{ rs.slug }}"><img src="{{ rs.image.url }}"  class="img-responsive img-rounded" alt="{{ rs.title }}"></a>
+                            <a href="/blog/{{ rs.category.slug }}/{{ rs.id }}"><img src="{{ rs.image.url }}"  class="img-responsive img-rounded" alt="{{ rs.title }}"></a>
                         </div>
                         <div class="service-dit">
-                            <a href="/blog/{{ rs.slug }}"><h3>{{ rs.title|safe }}</h3></a>
+                            <a href="/blog/{{ rs.category.slug }}/{{ rs.id }}"><h3>{{ rs.title|safe }}</h3></a>
                             <p>yazar: {{ rs.writer|safe }}</p>
                         </div>
                     </div>
