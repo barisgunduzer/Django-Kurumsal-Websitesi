@@ -8,9 +8,9 @@
     <div class="container">
         <div class="row">
             <h2 class="h2" style="text-align:center;color: #1f1f1f">
-                Kullanıcı Profili
+                Kullanıcı Bilgileri
             </h2>
-            <hr class="invis">
+            <hr class="hr2">
             <div class="col-md-4">
                 {% include 'user_panel.html' %}
             </div>
@@ -23,10 +23,12 @@
                     {% endfor %}
                 {% endif %}
 
+                <div class="media">
+                    <img src="{{ user.userprofile.image.url }}" style="height: 150px ; border-radius: 20px">
+                </div>
+                <hr class="invis">
+
                 <table class="table">
-                    <tr>
-                        <td class="text-left"><img src="{{ profile.image.url }}" style="height: 200px" alt=""></td>
-                    </tr>
                     <tr>
                         <th class="text-left">Ad ve Soyad</th>
                         <td class="text-left">{{ profile.user_name }}</td>

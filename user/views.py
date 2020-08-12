@@ -2,12 +2,13 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
-# Create your views here.
+
 from blog.models import Category, Comment, Post
 from home.models import UserProfile
+from user.forms import UserUpdateForm, ProfileUpdateForm
 
 
 @login_required(login_url='/login')  # Check Login
@@ -23,21 +24,21 @@ def index(request):
     return render(request, 'user_profile.html',context)
 
 
-@login_required(login_url='/login')  # Check Login
+@login_required(login_url='/login')
 def user_update(request):
     if request.method == 'POST':
-        user_form = UserUpdateForm(request.POST, instance=request.user) #request.user is user data.
+        user_form = UserUpdateForm(request.POST, instance=request.user)
         profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
-            messages.success(request, 'Your account has been updated! ')
+            messages.success(request, 'Profiliniz başarıyla güncellendi.')
             return redirect('/user')
 
     else:
         category = Category.objects.all()
         user_form = UserUpdateForm(instance=request.user)   #model user data
-        profile_form = ProfileUpdateForm(instance=request.user.userprofile)   #güncelleme durumlarında bu kısım formu getir diyoruz. #"userprofile" model -> OneToOneField relation with user
+        profile_form = ProfileUpdateForm(instance=request.user.userprofile)
         context = {'category': category,
                    'user_form': user_form,
                    'profile_form': profile_form,
@@ -52,10 +53,10 @@ def change_password(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)   #important
-            messages.success(request, 'Your password was successfully updated!')
+            messages.success(request, 'Şifreniz başarıyla değiştirildi.')
             return HttpResponseRedirect('/user')
         else:
-            messages.error(request, 'Please correct the error below.<br>'+ str(form.errors))
+            messages.error(request, 'Lütfen hatalı alanları kontrol ediniz.<br>'+ str(form.errors))
             return HttpResponseRedirect('/user/password')
     else:
         category = Category.objects.all()
@@ -65,10 +66,8 @@ def change_password(request):
         })
 
 
-@login_required(login_url='/login')  #check login
+@login_required(login_url='/login')
 def comments(request):
-    #return HttpResponse("Yorumlarınız ")
-
     category = Category.objects.all()
     current_user = request.user
     comments = Comment.objects.filter(user_id=current_user.id)
@@ -81,6 +80,6 @@ def comments(request):
 @login_required(login_url='/login')  #check login
 def deletecomment(request,id):
     current_user = request.user
-    Comment.objects.filter(id=id, user_id=current_user.id).delete() # başkasının kullanıcı değilse silmemesi ve istenen yorumun id uyuşaması halinde silinmesi sağlandı.
-    messages.success(request, 'Comment deleted..')
+    Comment.objects.filter(id=id, user_id=current_user.id).delete()
+    messages.success(request, 'Yorum silindi...')
     return HttpResponseRedirect('/user/comments')
