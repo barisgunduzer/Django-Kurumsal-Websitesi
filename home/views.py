@@ -6,7 +6,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from blog.models import Category, Comment, Post
 from home.forms import SignUpForm
-from home.models import Setting, ContactForm, ContactFormMessage
+from home.models import Setting, ContactForm, ContactFormMessage, UserProfile
+
 
 # Create your views here.
 
@@ -91,7 +92,6 @@ def login_view(request):
         else:
             messages.warning(request, "Kullanıcı Adı veya Şifre Yanlış")
             return HttpResponseRedirect('/login')
-
     category = Category.objects.all()
     last_posts = Post.objects.all().order_by('-id')[:4]
     context = {'category': category,

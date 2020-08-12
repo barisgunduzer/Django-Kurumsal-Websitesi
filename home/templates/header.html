@@ -62,21 +62,26 @@
                     {% else %}
                         <li><a href="/iletisim">Bize Ulaşın</a></li>
                     {% endif %}
-                    {% if page == 'login' %}
-                        <li><a class="active" href="/login">Kullanıcı Girişi</a></li>
-                    {% else %}
-                        <li><a href="/login">Kullanıcı Girişi</a></li>
-                    {% endif %}
-                    {% if page == 'logout' %}
-                        <li><a class="active" href="/logout/">Çıkış Yap</a></li>
-                    {% else %}
-                        <li><a href="/logout/">Çıkış Yap</a></li>
-                    {% endif %}
-                    {% if page == 'signup' %}
-                        <li><a class="active" href="/signup">Üye Ol</a></li>
-                    {% else %}
-                        <li><a href="/signup">Üye Ol</a></li>
-                    {% endif %}
+                    <li>
+                        <div style="margin-top: -8px" class="dropdown">
+                            <img onclick="myFunction()" class="dropbtn" src="{% static 'images/user-32.png' %}">
+                            <div id="myDropdown" class="dropdown-content">
+                                {% if user.id is not None %}
+                                <a href="/user">Profilim</a>
+                                {% endif %}
+                                {% if user.id is None %}
+                                <a href="/login">Giriş Yap</a>
+                                {% endif %}
+                                {% if user.id is None %}
+                                <a href="/signup">Kayıt Ol</a>
+                                {% endif %}
+                                {% if user.id is not None %}
+                                    <a href="/logout">Çıkış Yap</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                    <li style="margin-left:-15px;">{{ user.username }}</li>
                 </ul>
             </div>
         </div>
