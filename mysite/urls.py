@@ -21,21 +21,24 @@ from home import views
 
 urlpatterns = [
 
-    path('', include('home.urls')),
-    path('', include('blog.urls')),
-    path('home/', include('home.urls')),
-    path('user/', include('user.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('', include('home.urls')),
+    path('home/', include('home.urls')),
+    path('', include('blog.urls')),
+    path('user/', include('user.urls')),
 
-    path('iletisim/', views.iletisim, name='iletisim'),
-    path('blog/', views.blog, name='blog'),
     path('hakkimizda/', views.hakkimizda, name='hakkimizda'),
+    #path('hizmetlerimiz/', views.hizmetlerimiz, name='hizmetlerimiz'),
+    path('blog/', views.blog, name='blog'),
+    path('iletisim/', views.iletisim, name='iletisim'),
     path('referanslarimiz/', views.referanslar, name='referanslarimiz'),
+    path('sss/', views.faq, name='faq'),
+
+    path('user_profile/', views.signup_view, name='signup_view'),
+    path('signup/', views.signup_view, name='signup_view'),
     path('login/', views.login_view, name='login_view'),
     path('logout/', views.logout_view, name='logout_view'),
-    path('signup/', views.signup_view, name='signup_view'),
-    path('user_profile/', views.signup_view, name='signup_view'),
 
     path('blog/<slug:slug>/<int:id>/', views.blog_detail, name='blog_detail'),
 

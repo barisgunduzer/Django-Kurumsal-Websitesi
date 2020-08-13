@@ -4,20 +4,21 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-
-
 from blog.models import Category, Comment, Post
-from home.models import UserProfile
+from home.models import UserProfile, Setting
 from user.forms import UserUpdateForm, ProfileUpdateForm
+from user.models import ContentForm
 
 
 @login_required(login_url='/login')  # Check Login
 def index(request):
+    setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
     last_posts = Post.objects.all().order_by('-id')[:4]
     current_user = request.user  # Access User session information
     profile = UserProfile.objects.get(user_id=current_user.id)
-    context = {'category': category,
+    context = {'setting': setting,
+               'category': category,
                'profile': profile,
                'last_posts': last_posts,
                }
@@ -26,6 +27,8 @@ def index(request):
 
 @login_required(login_url='/login')
 def user_update(request):
+    setting = Setting.objects.get(pk=1)
+    last_posts = Post.objects.all().order_by('-id')[:4]
     if request.method == 'POST':
         user_form = UserUpdateForm(request.POST, instance=request.user)
         profile_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.userprofile)
@@ -39,15 +42,19 @@ def user_update(request):
         category = Category.objects.all()
         user_form = UserUpdateForm(instance=request.user)   #model user data
         profile_form = ProfileUpdateForm(instance=request.user.userprofile)
-        context = {'category': category,
+        context = {'setting': setting,
+                   'category': category,
                    'user_form': user_form,
                    'profile_form': profile_form,
+                   'last_posts': last_posts,
                    }
         return render(request, 'user_update.html', context)
 
 
 @login_required(login_url='/login')  # Check Login
 def change_password(request):
+    setting = Setting.objects.get(pk=1)
+    last_posts = Post.objects.all().order_by('-id')[:4]
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -61,18 +68,25 @@ def change_password(request):
     else:
         category = Category.objects.all()
         form = PasswordChangeForm(request.user)
-        return render(request, 'change_password.html', {
-            'form': form, 'category': category
-        })
+        context = {'setting': setting,
+                   'category': category,
+                   'form': form,
+                   'last_posts': last_posts,
+                   }
+        return render(request, 'change_password.html', context)
 
 
 @login_required(login_url='/login')
 def comments(request):
+    setting = Setting.objects.get(pk=1)
+    last_posts = Post.objects.all().order_by('-id')[:4]
     category = Category.objects.all()
     current_user = request.user
     comments = Comment.objects.filter(user_id=current_user.id)
-    context = {'category': category,
+    context = {'setting': setting,
+               'category': category,
                'comments': comments,
+               'last_posts': last_posts,
                }
     return render(request, 'user_comments.html', context)
 
@@ -81,5 +95,88 @@ def comments(request):
 def deletecomment(request,id):
     current_user = request.user
     Comment.objects.filter(id=id, user_id=current_user.id).delete()
-    messages.success(request, 'Yorum silindi...')
+    messages.success(request, 'Yorumunuz başarıyla silindi.')
     return HttpResponseRedirect('/user/comments')
+
+
+@login_required(login_url='/login')  #check login
+def contents(request):
+    setting = Setting.objects.get(pk=1)
+    last_posts = Post.objects.all().order_by('-id')[:4]
+    category = Category.objects.all()
+    current_user = request.user
+    contents = Post.objects.filter(user_id=current_user.id)
+    context = {'setting': setting,
+               'category': category,
+               'contents': contents,
+               'last_posts': last_posts,
+               }
+    return render(request, 'user_contents.html', context)
+
+@login_required(login_url='/login')  #check login
+def addcontent(request):
+    setting = Setting.objects.get(pk=1)
+    last_posts = Post.objects.all().order_by('-id')[:4]
+    if request.method == 'POST':
+        form = ContentForm(request.POST, request.FILES)
+        if form.is_valid():
+            current_user = request.user
+            data = Post()
+            data.user_id = current_user.id
+            data.category = form.cleaned_data['category']
+            data.title = form.cleaned_data['title']
+            data.keywords = form.cleaned_data['keywords']
+            data.description = form.cleaned_data['description']
+            data.image = form.cleaned_data['image']
+            data.slug = form.cleaned_data['slug']
+            data.content = form.cleaned_data['content']
+            data.status = 'False'
+            data.save()
+            messages.success(request, 'İçeriğiniz başarıyla kaydedildi.')
+            return HttpResponseRedirect('/user/contents')
+        else:
+            messages.error(request, 'Lütfen hatalı alanları kontrol ediniz.<br>'+ str(form.errors))
+            return HttpResponseRedirect('/user/contents')
+    else:
+        category = Category.objects.all()
+        form = ContentForm()
+        context = {'setting': setting,
+                   'category': category,
+                   'form': form,
+                   'last_posts': last_posts,
+                   }
+    return render(request, 'user_addcontent.html', context)
+
+@login_required(login_url='/login')  #check login
+def contentedit(request,id):
+    setting = Setting.objects.get(pk=1)
+    last_posts = Post.objects.all().order_by('-id')[:4]
+    content = Post.objects.get(id=id)
+    if request.method == 'POST':
+        form = ContentForm(request.POST, request.FILES,instance=content)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'İçeriğiniz başarıyla güncellendi.')
+            return HttpResponseRedirect('/user/contents')
+        else:
+            messages.error(request, 'Lütfen hatalı alanları kontrol ediniz.<br>'+ str(form.errors))
+            return HttpResponseRedirect('/user/contentedit/')+str(id)
+    else:
+        category = Category.objects.all()
+        form = ContentForm(instance=content)
+        context = {'setting': setting,
+                   'category': category,
+                   'form': form,
+                   'last_posts': last_posts,
+                   }
+    return render(request, 'user_addcontent.html', context)
+
+@login_required(login_url='/login')  #check login
+def contentdelete(request,id):
+    current_user = request.user
+    Post.objects.filter(id=id, user_id=current_user.id).delete()
+    messages.success(request, 'İçerik başarıyla silindi')
+    context = {
+        'comments': comments,
+    }
+    return render(request, 'user_contents.html', context)

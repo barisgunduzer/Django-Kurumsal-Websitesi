@@ -27,10 +27,10 @@
     <div class="row text-center" style="background-image:url({% static 'images/bg.png' %}">
         <div style="padding-top:50px;padding-bottom:50px">
             <img src="{{ post.image.url }}"  class="img-responsive img-rounded" alt="{{ post.title }}" style="margin:auto;display:block;width:25%">
-            <h3 style="margin-top:25px">{{ post.title|safe }}</h3>
+            <h2 style="margin-top:25px">{{ post.title|safe }}</h2>
             <div class="writer">
-                <small>yazar: {{ post.writer|safe }}</small>
-                <small>{{ post.create_at|date:'d-m-Y H:i' }}</small>
+                <p>yazan: {{ post.user.username }}</p>
+                <p>{{ post.create_at|date:'d-m-Y H:i' }}</p>
             </div>
         </div>
         <div class="col-md-3"></div>
@@ -52,7 +52,7 @@
                     <p>{{ rs.comment }}</p>
                     <div style="float:right;margin-right:-20px;text-align:center">
                         <img src="{% static 'images/user-16.png' %}">
-                        <small style="color:#fd6802">{{ rs.user }}</small>
+                        <small style="color:#fd6802">{{ rs.user.username }}</small>
                         <small>| {{ rs.create_at|date:'d-m-Y H:i' }}</small>
                     </div>
                 </div>

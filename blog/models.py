@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import SET_NULL
 from django.forms import ModelForm
 from django.urls import reverse
 from django.utils.safestring import mark_safe
@@ -46,14 +47,14 @@ class Post(models.Model):
         ('True', 'Evet'),
         ('False', 'Hayır'),
     )
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=30)
     keywords = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     image = models.ImageField(blank=True, upload_to='images')
-    writer = models.CharField(max_length=30)
     content = RichTextUploadingField(blank=True)
-    status = models.CharField(max_length=10, choices=STATUS)
+    status = models.CharField(max_length=10, choices=STATUS, default='New')
     slug = models.SlugField(null=False, unique=True)
     parent = models.ForeignKey('self', blank=True, null=True, related_name='children', on_delete=models.CASCADE)
     create_at = models.DateTimeField(auto_now_add=True)

@@ -1,4 +1,3 @@
-from ckeditor_uploader.forms import SearchForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -6,10 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from blog.models import Category, Comment, Post
 from home.forms import SignUpForm
-from home.models import Setting, ContactForm, ContactFormMessage, UserProfile
-
-
-# Create your views here.
+from home.models import Setting, ContactForm, ContactFormMessage, UserProfile, FAQ
 
 def index(request):
     setting = Setting.objects.get(pk=1)
@@ -41,9 +37,10 @@ def iletisim(request):
         if form.is_valid():
             data = ContactFormMessage()  # model ile bağlantı kur
             data.name = form.cleaned_data['name']  # formdan bilgiyi al
-            data.name = form.cleaned_data['email']
-            data.name = form.cleaned_data['subject']
-            data.name = form.cleaned_data['message']
+            data.email = form.cleaned_data['email']
+            data.subject = form.cleaned_data['subject']
+            data.message = form.cleaned_data['message']
+            data.ip = request.META.get('REMOTE_ADDR')
             data.save() # veritabanına kaydet
             messages.success(request, "Mesajınız başarı ile gönderilmiştir.")
             return HttpResponseRedirect('/iletisim')
@@ -82,6 +79,7 @@ def blog_detail(request, id, slug):
     return render(request, 'blog-detail.html', context)
 
 def login_view(request):
+    setting = Setting.objects.get(pk=1)
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -94,7 +92,8 @@ def login_view(request):
             return HttpResponseRedirect('/login')
     category = Category.objects.all()
     last_posts = Post.objects.all().order_by('-id')[:4]
-    context = {'category': category,
+    context = {'setting': setting,
+               'category': category,
                'last_posts': last_posts,
                }
     return render(request, 'login.html', context)
@@ -104,6 +103,7 @@ def logout_view(request):
     return HttpResponseRedirect('/')
 
 def signup_view(request):
+    setting = Setting.objects.get(pk=1)
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -113,19 +113,33 @@ def signup_view(request):
             user = authenticate(username=username, password=password)
             login(request, user)
 
+            #User profile tablosunu beraberinde oluştur
             current_user = request.user
-            data = User()
+            data = UserProfile()
             data.user_id = current_user.id
             data.image = "images/user/user.png"
             data.save()
-            messages.success(request, "Hesabınız oluşturuldu.")
+            messages.success(request, "Hesabınız başarıyla oluşturuldu.")
             return HttpResponseRedirect('/')
 
     form = SignUpForm()
     category = Category.objects.all()
     last_posts = Post.objects.all().order_by('-id')[:4]
-    context = {'category': category,
+    context = {'setting': setting,
+               'category': category,
                'form': form,
                'last_posts': last_posts,
                }
     return render(request, 'signup.html', context)
+
+def faq(request):
+    setting = Setting.objects.get(pk=1)
+    last_posts = Post.objects.all().order_by('-id')[:4]
+    category = Category.objects.all()
+    faq = FAQ.objects.filter(status=True).order_by('id')
+    context = {'setting': setting,
+               'category': category,
+               'faq': faq,
+               'last_posts': last_posts
+               }
+    return render(request, 'faq.html', context)

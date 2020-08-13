@@ -12,7 +12,8 @@
                         </div>
                         <div class="service-dit">
                             <a href="/blog/{{ rs.category.slug }}/{{ rs.id }}"><h3>{{ rs.title|safe }}</h3></a>
-                            <p>yazar: {{ rs.writer|safe }}</p>
+                            <p>yazan: {{ rs.user.username }}</p>
+                            <p>{{ rs.update_at|date:'d-m-Y H:i' }}</p>
                         </div>
                     </div>
                 {% endfor %}
