@@ -42,6 +42,11 @@
                     {% else %}
                         <li><a href="/hizmetlerimiz">Hizmetlerimiz</a></li>
                     {% endif %}
+                    {% if page == 'projelerimiz' %}
+                        <li><a class="active" href="/projelerimiz">Projelerimiz</a></li>
+                    {% else %}
+                        <li><a href="/projelerimiz">Projelerimiz</a></li>
+                    {% endif %}
                     {% if page == 'blog' %}
                         <li><a class="active" href="/blog">Blog</a></li>
                     {% else %}
@@ -67,13 +72,13 @@
                             <img onclick="myFunction()" class="dropbtn" src="{% static 'images/user-32.png' %}">
                             <div id="myDropdown" class="dropdown-content">
                                 {% if user.id is not None %}
-                                <a href="/user">Profilim</a>
+                                    <a href="/user">Profilim</a>
                                 {% endif %}
                                 {% if user.id is None %}
-                                <a href="/login">Giriş Yap</a>
+                                    <a href="/login">Giriş Yap</a>
                                 {% endif %}
                                 {% if user.id is None %}
-                                <a href="/signup">Kayıt Ol</a>
+                                    <a href="/signup">Kayıt Ol</a>
                                 {% endif %}
                                 {% if user.id is not None %}
                                     <a href="/logout">Çıkış Yap</a>

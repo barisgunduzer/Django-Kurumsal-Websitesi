@@ -23,6 +23,22 @@ def hakkimizda(request):
                'last_posts': last_posts}
     return render(request, 'hakkimizda.html', context)
 
+def hizmetlerimiz(request):
+    setting = Setting.objects.get(pk=1)
+    last_posts = Post.objects.all().order_by('-id')[:4]
+    context = {'setting': setting,
+               'page': 'hizmetlerimiz',
+               'last_posts': last_posts}
+    return render(request, 'hizmetlerimiz.html', context)
+
+def projelerimiz(request):
+    setting = Setting.objects.get(pk=1)
+    last_posts = Post.objects.all().order_by('-id')[:4]
+    context = {'setting': setting,
+               'page': 'projelerimiz',
+               'last_posts': last_posts}
+    return render(request, 'projelerimiz.html', context)
+
 def referanslar(request):
     setting = Setting.objects.get(pk=1)
     last_posts = Post.objects.all().order_by('-id')[:4]
@@ -138,6 +154,7 @@ def faq(request):
     category = Category.objects.all()
     faq = FAQ.objects.filter(status=True).order_by('id')
     context = {'setting': setting,
+               'page': 'sss',
                'category': category,
                'faq': faq,
                'last_posts': last_posts

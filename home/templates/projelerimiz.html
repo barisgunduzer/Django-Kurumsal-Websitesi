@@ -1,18 +1,23 @@
 {% extends "homebase.html" %}
-{% block title %}Referanslarımız{% endblock %}
+{% block title %}{{ setting.title }}{% endblock %}
 {% block keywords %}"{{ setting.keywords }}"{% endblock %}
 {% block description %}"{{ setting.description }}"{% endblock %}
 {% block head %} <link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}">{% endblock %}
 {% block header %}{% endblock %}
 {% block content %}
-    {% load static %}
     <div class="section">
         <div class="container">
             <div class="section-title text-center">
-                <h3 style="color: #1f1f1f">Referanslarımız</h3>
+                <h3>Projelerimiz</h3>
                 <hr class="hr3">
             </div>
-            {{ setting.references|safe }}
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10 text-center">
+                    {{ setting.ourprojects|safe }}
+                </div>
+                <div class="col-md-1"></div>
+            </div>
         </div>
     </div>
 {% endblock %}

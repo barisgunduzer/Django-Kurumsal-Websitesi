@@ -4,7 +4,7 @@
 {% block description %}"{{ setting.description }}"{% endblock %}
 {% block head %}<link rel="shorcut icon" type="image/x-icon" href="{{setting.icon.url}}">{% endblock %}
 {% block content %}
-    <div class="section" style="padding-bottom:500px;margin-top:-20px;background-color:#f2f3f5">
+    <div class="section" style="width: content-box;margin-top:-20px;background-color:#f2f3f5">
         <div class="container" style="width:100%">
             <div class="col-lg-3" style="position:fixed">
                 <nav class="portfolio-filter" style="width:100px;margin-top:30px">
@@ -50,7 +50,7 @@
                         </div>
                     {% endif %}
                     {% if rs.category.title == "Mobil Uygulama" %}
-                        <div class="post-media pitem item-w1 item-h1 cat1">
+                        <div class="post-media pitem item-w1 item-h1 cat4">
                             <a href="/blog/{{ rs.category.slug }}/{{ rs.id }}"><img src="{{ rs.image.url }}"  class="img-responsive img-rounded" alt="{{ rs.title }}"></a>
                             <div style="text-align: center;margin-top: 10px">
                                 <a href="/blog/{{ rs.category.slug }}/{{ rs.id }}"><h3>{{ rs.title|safe }}</h3></a>

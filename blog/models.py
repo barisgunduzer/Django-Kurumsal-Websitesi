@@ -47,7 +47,7 @@ class Post(models.Model):
         ('True', 'Evet'),
         ('False', 'Hayır'),
     )
-    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     title = models.CharField(max_length=30)
     keywords = models.CharField(max_length=255)

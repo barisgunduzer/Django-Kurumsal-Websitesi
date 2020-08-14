@@ -29,7 +29,8 @@ urlpatterns = [
     path('user/', include('user.urls')),
 
     path('hakkimizda/', views.hakkimizda, name='hakkimizda'),
-    #path('hizmetlerimiz/', views.hizmetlerimiz, name='hizmetlerimiz'),
+    path('hizmetlerimiz/', views.hizmetlerimiz, name='hizmetlerimiz'),
+    path('projelerimiz/', views.projelerimiz, name='projelerimiz'),
     path('blog/', views.blog, name='blog'),
     path('iletisim/', views.iletisim, name='iletisim'),
     path('referanslarimiz/', views.referanslar, name='referanslarimiz'),

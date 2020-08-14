@@ -33,18 +33,17 @@
                 <p>{{ post.create_at|date:'d-m-Y H:i' }}</p>
             </div>
         </div>
-        <div class="col-md-3"></div>
-        <div class="col-md-6" style="text-align: left">
+        <div class="col-md-2"></div>
+        <div class="col-md-8" style="text-align: left">
             <hr class="hr2">
             <p style="color: #0f0f0f">{{ post.content|safe }}</p>
             <hr class="hr2">
         </div>
-        <div class="col-md-3"></div>
+        <div class="col-md-2"></div>
     </div>
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-
             <h1 class="text-center" style="margin:20px">Yorumlar</h1>
             {% for rs in comments %}
                 <div class="desc" style="background-color: #f2f3f5;border:0;margin-bottom: 20px">
