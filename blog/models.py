@@ -8,7 +8,6 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
-
 class Category(MPTTModel):
     STATUS = (
         ('True', 'Evet'),
@@ -64,7 +63,6 @@ class Post(models.Model):
         return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
     image_tag.short_description = 'Image'
 
-
 class Picture(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     title = models.CharField(max_length=50, blank=True)
@@ -76,7 +74,6 @@ class Picture(models.Model):
 
     def __str__(self):
         return self.title
-
 
 class Comment(models.Model):
     STATUS = (
@@ -95,7 +92,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.subject
-
 
 class CommentForm(ModelForm):
     class Meta:

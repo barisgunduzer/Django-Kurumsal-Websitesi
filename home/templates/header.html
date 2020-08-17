@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load mptt_tags %}
 <!-- LOADER -->
 <div id="preloader">
     <div class="loader">
@@ -30,22 +30,28 @@
                     {% if page == 'home' %}
                         <li><a class="active" href="/">Anasayfa</a></li>
                     {% else %}
-                        <li><a href="/">Anasayfa</a></li>
+                        <li><a href="/">Anasayfa</a><li>
                     {% endif %}
                     {% if page == 'hakkimizda' %}
                         <li><a class="active" href="/hakkimizda">Hakkımızda</a></li>
                     {% else %}
                         <li><a href="/hakkimizda">Hakkımızda</a></li>
                     {% endif %}
-                    {% if page == 'hizmetlerimiz' %}
-                        <li><a class="active" href="/hizmetlerimiz">Hizmetlerimiz</a></li>
-                    {% else %}
-                        <li><a href="/hizmetlerimiz">Hizmetlerimiz</a></li>
-                    {% endif %}
-                    {% if page == 'projelerimiz' %}
-                        <li><a class="active" href="/projelerimiz">Projelerimiz</a></li>
-                    {% else %}
-                        <li><a href="/projelerimiz">Projelerimiz</a></li>
+                    {% if menu %}
+                        {% recursetree menu %}
+                            <li>
+                                <div class="dropdown" style="margin-top:11px ">
+                                    <a href="/menu/{{ node.id }}" class="dropbtn" {% if not node.is_leaf_node %} data-toggle="dropdown" aria-expanded="true" {% endif %}><strong>{{ node.title }} ></strong>{% if not node.is_leaf_node %}{% endif %}</a>
+                                    <div onclick="myFunction()" id="myDropdown" class="dropdown-content">
+                                        {% if not node.is_leaf_node %}
+                                            <ul class="list-links">
+                                                <li>{{ children }}</li>
+                                            </ul>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </li>
+                        {% endrecursetree %}
                     {% endif %}
                     {% if page == 'blog' %}
                         <li><a class="active" href="/blog">Blog</a></li>
@@ -67,26 +73,24 @@
                     {% else %}
                         <li><a href="/iletisim">Bize Ulaşın</a></li>
                     {% endif %}
-                    <li>
-                        <div style="margin-top: -8px" class="dropdown">
-                            <img onclick="myFunction()" class="dropbtn" src="{% static 'images/user-32.png' %}">
-                            <div id="myDropdown" class="dropdown-content">
-                                {% if user.id is not None %}
-                                    <a href="/user">Profilim</a>
-                                {% endif %}
-                                {% if user.id is None %}
-                                    <a href="/login">Giriş Yap</a>
-                                {% endif %}
-                                {% if user.id is None %}
-                                    <a href="/signup">Kayıt Ol</a>
-                                {% endif %}
-                                {% if user.id is not None %}
-                                    <a href="/logout">Çıkış Yap</a>
-                                {% endif %}
-                            </div>
+                    <div style="margin-top: -8px" class="dropdown">
+                        <img onclick="myFunction()" class="dropbtn" src="{% static 'images/user-32.png' %}">
+                        <div id="myDropdown" class="dropdown-content">
+                            {% if user.id is not None %}
+                                <li><a href="/user">Profilim</a></li>
+                            {% endif %}
+                            {% if user.id is None %}
+                                <li><a href="/login">Giriş Yap</a></li>
+                            {% endif %}
+                            {% if user.id is None %}
+                                <li><a href="/signup">Kayıt Ol</a></li>
+                            {% endif %}
+                            {% if user.id is not None %}
+                                <li><a href="/logout">Çıkış Yap</a></li>
+                            {% endif %}
                         </div>
-                    </li>
-                    <li style="margin-left:-15px;">{{ user.username }}</li>
+                    </div>
+                    {{ user.username }}
                 </ul>
             </div>
         </div>

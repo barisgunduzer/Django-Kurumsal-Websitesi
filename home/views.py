@@ -4,20 +4,30 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from blog.models import Category, Comment, Post
+from content.models import Menu, Content
 from home.forms import SignUpForm
 from home.models import Setting, ContactForm, ContactFormMessage, UserProfile, FAQ
 
 def index(request):
     setting = Setting.objects.get(pk=1)
+    menu = Menu.objects.all()
+    duyuru = Content.objects.filter(type='duyuru', status=True).order_by('-id')[:4]
+    haber = Content.objects.filter(type='haber', status=True).order_by('-id')[:4]
     last_posts = Post.objects.all().order_by('-id')[:4]
+    random_posts = Post.objects.filter(status=True).order_by('?')[:4]
     context = {'setting': setting,
+               'menu': menu,
                'page': 'home',
-               'last_posts': last_posts}
+               'last_posts': last_posts,
+               'random_posts': random_posts,
+               'duyuru': duyuru,
+               'haber': haber,
+               }
     return render(request, 'index.html', context)
 
 def hakkimizda(request):
     setting = Setting.objects.get(pk=1)
-    last_posts = Post.objects.all().order_by('-id')[:4]
+    last_posts = Post.objects.filter(status=True).order_by('-id')[:4]
     context = {'setting': setting,
                'page': 'hakkimizda',
                'last_posts': last_posts}
@@ -25,7 +35,7 @@ def hakkimizda(request):
 
 def hizmetlerimiz(request):
     setting = Setting.objects.get(pk=1)
-    last_posts = Post.objects.all().order_by('-id')[:4]
+    last_posts = Post.objects.filter(status=True).order_by('-id')[:4]
     context = {'setting': setting,
                'page': 'hizmetlerimiz',
                'last_posts': last_posts}
@@ -33,7 +43,7 @@ def hizmetlerimiz(request):
 
 def projelerimiz(request):
     setting = Setting.objects.get(pk=1)
-    last_posts = Post.objects.all().order_by('-id')[:4]
+    last_posts = Post.objects.filter(status=True).order_by('-id')[:4]
     context = {'setting': setting,
                'page': 'projelerimiz',
                'last_posts': last_posts}
@@ -41,7 +51,7 @@ def projelerimiz(request):
 
 def referanslar(request):
     setting = Setting.objects.get(pk=1)
-    last_posts = Post.objects.all().order_by('-id')[:4]
+    last_posts = Post.objects.filter(status=True).order_by('-id')[:4]
     context = {'setting': setting,
                'page': 'referanslarimiz',
                'last_posts': last_posts}
@@ -62,18 +72,48 @@ def iletisim(request):
             return HttpResponseRedirect('/iletisim')
     setting = Setting.objects.get(pk=1)
     form = ContactForm(request.POST)
-    last_posts = Post.objects.all().order_by('-id')[:4]
+    last_posts = Post.objects.filter(status=True).order_by('-id')[:4]
     context = {'setting': setting,
                'form': form,
                'page': 'iletisim',
                'last_posts': last_posts}
     return render(request, 'iletisim.html', context)
 
+def menu(request, id):
+    try:
+        content = Content.objects.get(menu_id=id)
+        link = '/content/' + str(content.type) + '/' + str(content.id)
+        return HttpResponseRedirect(link)
+    except:
+        messages.warning(request, "Hata! İlgili içerik bulunamadı")
+        link = '/'
+        return HttpResponseRedirect(link)
+
+def contentdetail(request, id, slug):
+    setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
+    menu = Menu.objects.all()
+    try:
+        content = Content.objects.get(pk=id)
+        comments = Comment.objects.filter(post_id=id, status=True)
+        last_posts = Post.objects.filter(status=True).order_by('-id')[:4]
+        context = {'setting': setting,
+                   'menu': menu,
+                   'category': category,
+                   'comments': comments,
+                   'content': content,
+                   'last_posts': last_posts}
+        return render(request, 'content-detail.html', context)
+    except:
+        messages.warning(request, "Hata! İlgili içerik bulunamadı")
+        link = '/'
+        return HttpResponseRedirect(link)
+
 def blog(request):
     setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
     post = Post.objects.filter(status=True)
-    last_posts = Post.objects.all().order_by('-id')[:4]
+    last_posts = Post.objects.filter(status=True).order_by('-id')[:4]
     context = {'setting': setting,
                'page': 'blog',
                'last_posts': last_posts,
@@ -84,15 +124,21 @@ def blog(request):
 def blog_detail(request, id, slug):
     setting = Setting.objects.get(pk=1)
     category = Category.objects.all()
-    post = Post.objects.get(pk=id)
-    comments = Comment.objects.filter(post_id=id, status=True)
-    last_posts = Post.objects.all().order_by('-id')[:4]
-    context = {'setting': setting,
-               'last_posts': last_posts,
-               'category': category,
-               'post': post,
-               'comments': comments,}
-    return render(request, 'blog-detail.html', context)
+    try:
+        post = Post.objects.get(pk=id)
+        comments = Comment.objects.filter(post_id=id, status=True)
+        last_posts = Post.objects.all().order_by('-id')[:4]
+        context = {'setting': setting,
+                   'last_posts': last_posts,
+                   'category': category,
+                   'post': post,
+                   'comments': comments,}
+        return render(request, 'blog-detail.html', context)
+    except:
+        messages.warning(request, "Hata! İlgili içerik bulunamadı")
+        link = '/'
+        return HttpResponseRedirect(link)
+
 
 def login_view(request):
     setting = Setting.objects.get(pk=1)
@@ -107,7 +153,7 @@ def login_view(request):
             messages.warning(request, "Kullanıcı Adı veya Şifre Yanlış")
             return HttpResponseRedirect('/login')
     category = Category.objects.all()
-    last_posts = Post.objects.all().order_by('-id')[:4]
+    last_posts = Post.objects.filter(status=True).order_by('-id')[:4]
     context = {'setting': setting,
                'category': category,
                'last_posts': last_posts,
@@ -140,7 +186,7 @@ def signup_view(request):
 
     form = SignUpForm()
     category = Category.objects.all()
-    last_posts = Post.objects.all().order_by('-id')[:4]
+    last_posts = Post.objects.filter(status=True).order_by('-id')[:4]
     context = {'setting': setting,
                'category': category,
                'form': form,
@@ -150,7 +196,7 @@ def signup_view(request):
 
 def faq(request):
     setting = Setting.objects.get(pk=1)
-    last_posts = Post.objects.all().order_by('-id')[:4]
+    last_posts = Post.objects.filter(status=True).order_by('-id')[:4]
     category = Category.objects.all()
     faq = FAQ.objects.filter(status=True).order_by('id')
     context = {'setting': setting,
@@ -160,3 +206,14 @@ def faq(request):
                'last_posts': last_posts
                }
     return render(request, 'faq.html', context)
+
+def error(request):
+    setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
+    menu = Menu.objects.all()
+    last_posts = Post.objects.filter(status=True).order_by('-id')[:4]
+    context = {'setting': setting,
+               'menu': menu,
+               'category': category,
+               'last_posts': last_posts}
+    return render(request, 'error_page.html', context)

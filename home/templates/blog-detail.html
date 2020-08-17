@@ -47,8 +47,8 @@
             <h1 class="text-center" style="margin:20px">Yorumlar</h1>
             {% for rs in comments %}
                 <div class="desc" style="background-color: #f2f3f5;border:0;margin-bottom: 20px">
-                    <h4>{{ rs.subject }}</h4>
-                    <p>{{ rs.comment }}</p>
+                    <h4 style="color:#fd6802">{{ rs.subject }}</h4>
+                    <p style="color:#1f1f1f">{{ rs.comment }}</p>
                     <div style="float:right;margin-right:-20px;text-align:center">
                         <img src="{% static 'images/user-16.png' %}">
                         <small style="color:#fd6802">{{ rs.user.username }}</small>
