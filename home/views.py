@@ -81,7 +81,7 @@ def iletisim(request):
 
 def menu(request, id):
     try:
-        content = Content.objects.get(menu_id=id)
+        content = Content.objects.filter(status=True).get(menu_id=id)
         link = '/content/' + str(content.type) + '/' + str(content.id)
         return HttpResponseRedirect(link)
     except:
