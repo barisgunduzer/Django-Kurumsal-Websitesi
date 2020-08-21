@@ -41,7 +41,7 @@
                         {% recursetree menu %}
                             <li>
                                 <div class="dropdown" style="margin-top:11px ">
-                                    <a href="/menu/{{ node.id }}" class="dropbtn" {% if not node.is_leaf_node %} data-toggle="dropdown" aria-expanded="true" {% endif %}><strong>{{ node.title }} ></strong>{% if not node.is_leaf_node %}{% endif %}</a>
+                                    <a href="/menu/{{ node.id }}" class="dropbtn" style="font-weight:600" {% if not node.is_leaf_node %} data-toggle="dropdown" aria-expanded="true" {% endif %}>{{ node.title }} ▸{% if not node.is_leaf_node %}{% endif %}</a>
                                     <div onclick="myFunction()" id="myDropdown" class="dropdown-content">
                                         {% if not node.is_leaf_node %}
                                             <ul class="list-links">
